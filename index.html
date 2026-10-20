@@ -1,133 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StudySaathi - Smart Study Partner</title>
-<style>
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: #eef3ff;
-  font-family: Arial, sans-serif;
-  color: #172554;
-}
-.app { max-width: 900px; margin: auto; padding: 24px; }
-header {
-  background: #142653;
-  color: white;
-  padding: 32px;
-  border-radius: 24px;
-}
-.logo { font-size: 22px; font-weight: bold; }
-.tag { font-size: 11px; color: #a5f3fc; }
-header h1 { font-size: 42px; }
-header h1 span { color: #67e8f9; }
-header p { line-height: 1.7; }
-.welcome, .tools article {
-  background: white;
-  padding: 22px;
-  margin-top: 20px;
-  border-radius: 18px;
-  box-shadow: 0 5px 20px #17255410;
-}
-.subjects { display: flex; flex-wrap: wrap; gap: 10px; }
-button {
-  border: 0;
-  background: #2563eb;
-  color: white;
-  padding: 12px 16px;
-  border-radius: 10px;
-  cursor: pointer;
-  margin-top: 8px;
-}
-button:hover { background: #1d4ed8; }
-.tools {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.emoji { font-size: 28px; }
-input {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-}
-footer { text-align: center; padding: 28px 0; color: #64748b; }
-@media (max-width: 600px) {
-  .tools { grid-template-columns: 1fr; }
-  header h1 { font-size: 32px; }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f7ff">
+  <meta name="description" content="StudySaathi - your simple study partner for notes, goals and quizzes.">
+  <title>StudySaathi — Learn Better</title>
+  <style>
+    :root {
+      --primary: #5b5ce2;
+      --dark: #202344;
+      --muted: #6f7490;
+      --bg: #f5f7ff;
+      --card: #ffffff;
+      --border: #e8eafd;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--dark);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1080px, 92%); margin: auto; }
+    header {
+      background: rgba(255,255,255,.94);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+    .nav {
+      min-height: 70px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .logo { font-size: 22px; font-weight: 800; color: var(--primary); }
+    .nav a { font-size: 14px; font-weight: 700; }
+    .hero {
+      padding: 64px 0 42px;
+      background: linear-gradient(135deg, #eeeeff, #f8fbff 65%, #e7f8f5);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 30px;
+      align-items: center;
+    }
+    .tag {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 30px;
+      background: #e2e3ff;
+      color: #494ac2;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    h1 { font-size: clamp(34px, 5vw, 52px); line-height: 1.12; margin: 18px 0; }
+    .accent { color: var(--primary); }
+    .intro { color: var(--muted); font-size: 17px; max-width: 550px; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: var(--primary);
+      color: white;
+      font-weight: 700;
+      border: 0;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    .btn-light { background: white; color: var(--primary); border: 1px solid var(--border); }
+    .hero-card {
+      padding: 26px;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 16px 45px #30358a12;
+      border: 1px solid var(--border);
+    }
+    .hero-icon { font-size: 50px; }
+    .progress { height: 9px; background: #ededfb; border-radius: 20px; overflow: hidden; margin: 12px 0; }
+    .progress span { display: block; width: 70%; height: 100%; background: #62c7a5; border-radius: 20px; }
+    section { padding: 42px 0; }
+    .section-head { margin-bottom: 22px; }
+    h2 { font-size: 28px; margin: 0 0 6px; }
+    .muted { color: var(--muted); margin: 0; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card {
+      background: var(--card);
+      padding: 22px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      transition: transform .18s, box-shadow .18s;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px #252a5510; }
+    .card-icon { font-size: 30px; }
+    .card h3 { margin: 10px 0 6px; }
+    .card p { color: var(--muted); font-size: 14px; }
+    .small-link { color: var(--primary); font-weight: 700; font-size: 14px; }
+    .goal {
+      background: #22264c;
+      color: white;
+      border-radius: 22px;
+      padding: 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .goal p { color: #d8daf8; margin-bottom: 0; }
+    .goal .btn { background: white; color: #3436aa; flex-shrink: 0; }
+    footer { padding: 28px 0; text-align: center; color: var(--muted); font-size: 13px; }
+    @media (max-width: 700px) {
+      .hero { padding: 42px 0 28px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: 1fr; }
+      .nav { min-height: 62px; }
+      .nav a { font-size: 12px; }
+      .logo { font-size: 19px; }
+      section { padding: 30px 0; }
+      .goal { align-items: flex-start; flex-direction: column; }
+      .hero-card { padding: 20px; }
+    }
+  </style>
 </head>
 <body>
-<div class="app">
   <header>
-    <div class="logo">📚 StudySaathi</div>
-    <span class="tag">YOUR SMART STUDY PARTNER</span>
-    <h1>Study smarter.<br><span>Score better.</span></h1>
-    <p>Chhote steps lo, concepts samjho aur apni progress khud dekho.</p>
-  </header>
-  <section class="welcome">
-    <h2>Aaj kya padhna hai?</h2>
-    <p>Apna subject choose kar aur shuru ho ja!</p>
-    <div class="subjects">
-      <button onclick="choose('Biology')">🧬 Biology</button>
-      <button onclick="choose('Chemistry')">⚗️ Chemistry</button>
-      <button onclick="choose('Physics')">⚡ Physics</button>
+    <div class="wrap nav">
+      <a class="logo" href="#">📚 StudySaathi</a>
+      <a href="#tools">Explore study tools ↘</a>
     </div>
-    <p id="selected">Abhi koi subject select nahi kiya.</p>
-  </section>
-  <section class="tools">
-    <article>
-      <div class="emoji">⏱️</div>
-      <h3>15-Minute Focus</h3>
-      <p>Ek chhota study session complete kar.</p>
-      <button onclick="startTimer()">Start focus</button>
-      <h2 id="timer">15:00</h2>
-    </article>
-    <article>
-      <div class="emoji">🎯</div>
-      <h3>Daily Goal</h3>
-      <p>Aaj ka ek target poora kar.</p>
-      <input id="goal" placeholder="e.g. Revise cell chapter">
-      <button onclick="saveGoal()">Set my goal</button>
-      <p id="goalStatus"></p>
-    </article>
-  </section>
-  <footer>StudySaathi · Learn a little every day 💙</footer>
-</div>
-<script>
-function choose(subject) {
-  document.getElementById("selected").textContent =
-    "Aaj ka subject: " + subject + " 💪";
-}
-let remaining = 900;
-let interval = null;
-function startTimer() {
-  if (interval !== null) return;
-  interval = setInterval(function() {
-    if (remaining > 0) {
-      remaining--;
-      const mins = Math.floor(remaining / 60);
-      const secs = remaining % 60;
-      document.getElementById("timer").textContent =
-        String(mins).padStart(2, "0") + ":" +
-        String(secs).padStart(2, "0");
-    } else {
-      clearInterval(interval);
-      interval = null;
-      document.getElementById("timer").textContent = "Done! 🎉";
-    }
-  }, 1000);
-}
-function saveGoal() {
-  const goal = document.getElementById("goal").value.trim();
-  document.getElementById("goalStatus").textContent = goal
-    ? "Today's goal: " + goal + " 💪"
-    : "Pehle apna goal likh!";
-}
-</script>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="tag">YOUR LEARNING, YOUR PACE ✨</span>
+          <h1>Study smarter.<br><span class="accent">Dream bigger.</span></h1>
+          <p class="intro">Your friendly study partner to organise your learning, build good habits and take one step forward every day.</p>
+          <div class="actions">
+            <a class="btn" href="#tools">Explore Study Tools →</a>
+            <a class="btn btn-light" href="#about">About us</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-icon">🎯</div>
+          <h3>Your next big goal starts today</h3>
+          <p class="muted">Small steps. Daily practice. Real progress.</p>
+          <div class="progress"><span></span></div>
+          <strong>Keep showing up!</strong>
+          <p class="muted">You don't need to be perfect. Just keep learning.</p>
+        </div>
+      </div>
+    </div>
+
+    <section id="tools">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Your study space 📖</h2>
+          <p class="muted">Everything begins with one small step.</p>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <div class="card-icon">📝</div>
+            <h3>Notes & Revision</h3>
+            <p>Keep your important points organised and make revision easier.</p>
+            <a class="small-link" href="#coming">Explore notes →</a>
+          </article>
+          <article class="card">
+            <div class="card-icon">🧠</div>
+            <h3>MCQ Practice</h3>
+            <p>Practise questions and strengthen your understanding topic by topic.</p>
+            <a class="small-link" href="#coming">Practise now →</a>
+          </article>
+          <article class="card">
+            <div class="card-icon">🗓️</div>
+            <h3>Study Planner</h3>
+            <p>Plan your study sessions and make time for what matters.</p>
+            <a class="small-link" href="#coming">Plan your day →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="coming">
+      <div class="wrap">
+        <div class="goal">
+          <div>
+            <h2>One day at a time 💜</h2>
+            <p>New study resources and tools are coming soon.</p>
+          </div>
+          <a class="btn" href="#about">Let's learn</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap">
+        <h2>About StudySaathi</h2>
+        <p class="muted">A simple learning project created to help students study with more clarity and confidence.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">Made with 💜 for learners everywhere · StudySaathi</div>
+  </footer>
 </body>
 </html>
